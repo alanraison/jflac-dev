@@ -1,9 +1,6 @@
-package org.kc7bfi.jflac;
-
 /**
- *  libFLAC - Free Lossless Audio Codec library
- * Copyright (C) 2000,2001,2002,2003  Josh Coalson
- *
+ * jFLAC Codec: Java implementation of the FLAC library.
+ * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -19,13 +16,12 @@ package org.kc7bfi.jflac;
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
+package org.kc7bfi.jflac.sound.spi;
 
-import javax.sound.sampled.AudioInputStream;
+/**
+ * @author alanraison
+ *
+ */
+public class PcmToFlacAudioOutputStream {
 
-public class FLACEncoder {
-	Block blocker;
-
-	public int encode(final AudioInputStream stream) {
-		return 0;
-	}
 }
