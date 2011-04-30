@@ -126,7 +126,7 @@ public class TestJavaSoundSPI {
 			for (int channel = 1; channel <= 2; channel++) {
 				for (int bit = 0; bit < bitsOK.length; bit++) {
 					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
+							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
 							16000, bitsOK[bit], channel, -1, -1, false);
 					System.out.print("can convert 1: " + channel + "-channel, "
 							+ bitsOK[bit] + "-bit FLAC to PCM...");
@@ -150,7 +150,7 @@ public class TestJavaSoundSPI {
 			for (int channel = 2; channel <= 3; channel++) {
 				for (int bit = 0; bit < bitsCorrupt.length; bit++) {
 					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
+							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
 							16000, bitsCorrupt[bit], channel, -1, -1, false);
 					System.out.print("cannot convert 1: " + channel
 							+ "-channel, " + bitsCorrupt[bit]
@@ -173,7 +173,7 @@ public class TestJavaSoundSPI {
 			for (int i = 0; i < channelsCorrupt.length; i++) {
 				for (int bit = 16; bit < 40; bit += 16) {
 					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
+							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
 							16000, bit, channelsCorrupt[i], -1, -1, false);
 					System.out.print("cannot convert 1: " + channelsCorrupt[i]
 							+ "-channel, " + bit + "-bit FLAC to PCM...");
@@ -211,7 +211,7 @@ public class TestJavaSoundSPI {
 										// OK, at least one combination of
 										// src/target parameters is not the same
 										AudioFormat srcFormat = new AudioFormat(
-												org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
+												org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
 												srcSampleRate, srcBit,
 												srcChannel, -1, -1, false);
 										AudioFormat targetFormat = new AudioFormat(
@@ -244,7 +244,7 @@ public class TestJavaSoundSPI {
 					int srcBit = bitsOK[srcBitIndex];
 					float srcSampleRate = 22050;
 					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
+							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
 							srcSampleRate, srcBit, srcChannel, -1, -1, false);
 					AudioFormat targetFormat = new AudioFormat(srcSampleRate,
 							srcBit, srcChannel, true, true);
