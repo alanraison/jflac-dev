@@ -16,8 +16,8 @@ package org.jflac.format;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
- * 
+ *
  */
-public class MetaDataBlockSeekTable extends MetaDataBlockData {
+public class MetaDataBlockData {
 
 }

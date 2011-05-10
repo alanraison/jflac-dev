@@ -18,6 +18,21 @@ package org.jflac.format;
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public class MetaDataBlockSeekTable extends MetaDataBlockData {
+public enum MetaDataBlockDataType {
+	STREAMINFO(0);
 
+	private int id;
+
+	private MetaDataBlockDataType(final int id) {
+		this.id = id;
+	}
+
+	public static MetaDataBlockDataType getFromId(final int id) {
+		for (final MetaDataBlockDataType type : MetaDataBlockDataType.values()) {
+			if (type.id == id) {
+				return type;
+			}
+		}
+		return null;
+	}
 }

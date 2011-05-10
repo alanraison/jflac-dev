@@ -14,10 +14,24 @@
  */
 package org.jflac.format;
 
+import java.util.Collection;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public class MetaDataBlockSeekTable extends MetaDataBlockData {
+public class Stream {
+	/** FLAC stream identifier */
+	public static final byte[] FLAC_HEADER = new byte[] { (byte) 0x66,
+			(byte) 0x4C, (byte) 0x61, (byte) 0x43, };
+
+	private final byte[] header = new byte[4];
+	private MetaDataBlock streamInfo;
+	private Collection<MetaDataBlock> metaData;
+	private Collection<Frame> frames;
+
+	public boolean isFlacStream() {
+		return true;
+	}
 
 }
