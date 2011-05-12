@@ -12,36 +12,35 @@
  * You should have received a copy of the GNU Lesser Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.impl;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.jflac.data.Deserializer;
-import org.jflac.data.impl.MetaDataBlockStreamInfoDeserializer;
+import org.jflac.data.format.MetaDataBlockStreamInfo;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
- * 
+ *
  */
-public enum MetaDataBlockDataType {
-	STREAMINFO(0, MetaDataBlockStreamInfoDeserializer.getInstance());
-
-	private int id;
-	private Deserializer<? extends MetaDataBlockData> serializer;
-
-	private MetaDataBlockDataType(final int id, Deserializer<? extends MetaDataBlockData> serializer) {
-		this.id = id;
-		this.serializer = serializer;
-	}
-
-	public static MetaDataBlockDataType getFromId(final int id) {
-		for (final MetaDataBlockDataType type : MetaDataBlockDataType.values()) {
-			if (type.id == id) {
-				return type;
-			}
-		}
-		return null;
+public class MetaDataBlockStreamInfoDeserializer implements Deserializer<MetaDataBlockStreamInfo> {
+	private static MetaDataBlockStreamInfoDeserializer instance = new MetaDataBlockStreamInfoDeserializer();
+	
+	public static MetaDataBlockStreamInfoDeserializer getInstance() {
+		return instance;
 	}
 	
-	public Deserializer<? extends MetaDataBlockData> serializer() {
-		return this.serializer;
+	private MetaDataBlockStreamInfoDeserializer() {
+		// Private constructor
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jflac.data.Deserializer#read(java.io.InputStream)
+	 */
+	@Override
+	public MetaDataBlockStreamInfo read(InputStream is) throws IOException {
+		MetaDataBlockStreamInfo mdbsi = new MetaDataBlockStreamInfo();
+		return null;
 	}
 }

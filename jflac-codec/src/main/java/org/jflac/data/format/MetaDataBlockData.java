@@ -14,10 +14,28 @@
  */
 package org.jflac.data.format;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jflac.data.FlacStreamData;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
-public class MetaDataBlockData {
+public abstract class MetaDataBlockData implements FlacStreamData {
+
+	@Override
+	public void read(InputStream is) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void write(OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

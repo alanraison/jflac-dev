@@ -16,10 +16,11 @@ package org.jflac.data.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
-import org.jflac.data.StreamSerializer;
+import org.jflac.data.StreamDeserializer;
 import org.jflac.data.format.Frame;
 import org.jflac.data.format.MetaDataBlock;
 import org.jflac.data.format.Stream;
@@ -29,7 +30,7 @@ import org.jflac.data.format.impl.StreamImpl;
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
-public class StreamDeserializerImpl implements StreamSerializer {
+public class StreamDeserializerImpl implements StreamDeserializer {
 	private static final StreamDeserializerImpl instance = new StreamDeserializerImpl();
 	
 	private StreamDeserializerImpl()
@@ -55,36 +56,23 @@ public class StreamDeserializerImpl implements StreamSerializer {
 	 * @see org.jflac.data.StreamSerializer#readMetaData()
 	 */
 	@Override
-	public Collection<MetaDataBlock> readMetaData() throws IOException {
-		MetaDataBlock block = null;
-		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jflac.data.StreamSerializer#writeMetaData(java.util.Collection)
-	 */
-	@Override
-	public void writeMetaData(Collection<MetaDataBlock> metadata)
-			throws IOException {
-		// TODO Auto-generated method stub
-		
+	public List<MetaDataBlock> readMetaData(InputStream is) throws IOException {
+		List<MetaDataBlock> metaData = new ArrayList<MetaDataBlock>();
+		boolean lastBlock = false;
+		while (!lastBlock) {
+			MetaDataBlock block = MetaDataBlockDeserializer.getInstance().read(is);
+			metaData.add(block);
+			lastBlock = block.getHeader().isLastMetaData();
+		}
+		return metaData;
 	}
 	
 	/* (non-Javadoc)
 	 * @see org.jflac.data.StreamSerializer#readData()
 	 */
 	@Override
-	public Frame readDataFrame() throws IOException {
+	public Frame readDataFrame(InputStream is) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.jflac.data.StreamSerializer#writeData(java.util.Collection)
-	 */
-	@Override
-	public void writeDataFrame(Frame data) throws IOException {
-		// TODO Auto-generated method stub
-		
 	}
 }

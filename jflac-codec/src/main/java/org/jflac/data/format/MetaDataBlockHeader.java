@@ -18,11 +18,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+import org.jflac.data.Deserializer;
+import org.jflac.data.FlacStreamData;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public class MetaDataBlockHeader {
+public class MetaDataBlockHeader implements FlacStreamData {
+	public static final Deserializer<MetaDataBlockHeader> deserializer = new Deserializer<MetaDataBlockHeader>() {		
+		@Override
+		public MetaDataBlockHeader read(InputStream is) throws IOException {
+			MetaDataBlockHeader mdbh = new MetaDataBlockHeader();
+			int bytes = is.read(mdbh.data);
+			if (bytes < 4) {
+				// TODO: error
+			}
+			return mdbh;
+		}
+	};
 	private byte[] data = new byte[4];
 	private MetaDataBlockData metaDataBlockData;
 	
@@ -31,13 +45,9 @@ public class MetaDataBlockHeader {
 		Arrays.fill(data, (byte) 0);
 	}
 	
-	public static MetaDataBlockHeader read(final InputStream is) throws IOException {
-		MetaDataBlockHeader mdbh = new MetaDataBlockHeader();
-		int bytes = is.read(mdbh.data);
-		if (bytes < 4) {
-			// TODO: error
-		}
-		return mdbh;
+	@Override
+	public Deserializer<MetaDataBlockHeader> getDeserializer() {
+		return deserializer;
 	}
 	
 	public boolean isLastMetaData() {

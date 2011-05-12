@@ -12,12 +12,17 @@
  * You should have received a copy of the GNU Lesser Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
- * 
+ *
  */
-public class MetaDataBlockPadding extends MetaDataBlockData {
-	private byte[] padding;
+public interface FlacStreamData {
+	void read(InputStream is) throws IOException;
+	void write(OutputStream os) throws IOException;
 }

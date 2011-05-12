@@ -14,9 +14,16 @@
  */
 package org.jflac.data.format;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
+import org.jflac.data.Deserializer;
 import org.jflac.data.FlacSerializable;
+import org.jflac.data.FlacStreamData;
+import org.jflac.data.StreamDeserializer;
 import org.jflac.data.impl.StreamDeserializerImpl;
 
 /**
@@ -24,13 +31,51 @@ import org.jflac.data.impl.StreamDeserializerImpl;
  * 
  * @author alanraison <alanraison@users.sourceforge.net>
  */
-public interface Stream {
+public class Stream implements FlacStreamData {
 	/** FLAC stream identifier */
-	static final byte[] FLAC_HEADER = new byte[] { (byte) 0x66,
+	public static final byte[] FLAC_HEADER = new byte[] { (byte) 0x66,
 			(byte) 0x4C, (byte) 0x61, (byte) 0x43, };
-	static final StreamDeserializerImpl SERIALIZER = StreamDeserializerImpl.getInstance();
-
-	MetaDataBlock getStreamInfo();
 	
-	Collection<MetaDataBlock> getMetaData();
+	private List<MetaDataBlock> metaData;
+	private List<Frame> frames;
+	
+	private static final StreamDeserializer DESERIALIZER = new StreamDeserializer() {
+		
+		@Override
+		public Stream read(InputStream is) throws IOException {
+			byte[] marker = new byte[4];
+			if (is.read(marker) != 4 || Arrays.equals(Stream.FLAC_HEADER, marker)) {
+				return null;
+			}
+			return new Stream();
+		}
+		
+		@Override
+		public Collection<MetaDataBlock> readMetaData(InputStream is)
+				throws IOException {
+			Stream s = read(is);
+			return s != null ? MetaDataBlock.getDeserializer().read(is);
+		}
+		
+		@Override
+		public Frame readDataFrame(InputStream is) throws IOException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
+
+	public MetaDataBlock getStreamInfo() {
+		return metaData.get(0);
+	}
+	
+	public List<MetaDataBlock> getMetaData() {
+		
+	}
+
+	@Override
+	public StreamDeserializer getDeserializer() {
+		return DESERIALIZER;
+	}
+	
+	//private static class 
 }
