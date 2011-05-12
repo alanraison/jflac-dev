@@ -1,16 +1,16 @@
 /**
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
  *
- *  You should have received a copy of the GNU Lesser Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.jflac;
 
@@ -24,6 +24,8 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.spi.AudioFileReader;
+
+import org.jflac.data.impl.StreamSerializer;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
@@ -45,8 +47,14 @@ public class FlacFileReader extends AudioFileReader {
 			throws UnsupportedAudioFileException, IOException {
 		// Mark the stream so that we can reset afterwards (if possible)
 		if (stream.markSupported()) {
-			stream.mark(1024); // TODO: is this a sensible limit?
+			stream.mark(5); // TODO: is this a sensible limit?
 		}
+		try {
+			StreamSerializer.getInstance().read(stream);
+		} catch (IOException e) {
+			throw new UnsupportedAudioFileException("Could not locate FLAC file marker");
+		}
+		
 		final byte[] header = new byte[4];
 		stream.read(header);
 
@@ -68,6 +76,7 @@ public class FlacFileReader extends AudioFileReader {
 		final float frameRate;
 
 		final boolean bigEndian;
+		return null;
 	}
 
 	/*
