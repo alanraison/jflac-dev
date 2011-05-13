@@ -16,9 +16,9 @@ package org.jflac.data.format;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.io.OutputStream;
 
-import org.jflac.data.Deserializer;
+import org.jflac.FlacDataException;
 import org.jflac.data.FlacStreamData;
 
 /**
@@ -26,36 +26,46 @@ import org.jflac.data.FlacStreamData;
  * 
  */
 public class MetaDataBlockHeader implements FlacStreamData {
-	public static final Deserializer<MetaDataBlockHeader> deserializer = new Deserializer<MetaDataBlockHeader>() {		
-		@Override
-		public MetaDataBlockHeader read(InputStream is) throws IOException {
-			MetaDataBlockHeader mdbh = new MetaDataBlockHeader();
-			int bytes = is.read(mdbh.data);
-			if (bytes < 4) {
-				// TODO: error
-			}
-			return mdbh;
-		}
-	};
-	private byte[] data = new byte[4];
-	private MetaDataBlockData metaDataBlockData;
+	private final boolean last;
+	private final MetaDataBlockDataType dataType;
+	private final int dataLength;
 	
-	public MetaDataBlockHeader()
+	public MetaDataBlockHeader(final InputStream is) throws IOException, FlacDataException
 	{
-		Arrays.fill(data, (byte) 0);
+		byte[] data = new byte[4];
+		int length = is.read(data);
+		if (length == 4) {
+			this.last = data[0] >>7 == 1;
+			this.dataType = MetaDataBlockDataType.getFromId(data[0] & 0x7F);
+			this.dataLength  = data[1] << 16 | data[2] << 8 | data[3];
+		} else {
+			throw new FlacDataException("Failed to read MetaDataBlockHeader");
+		}
 	}
 	
-	@Override
-	public Deserializer<MetaDataBlockHeader> getDeserializer() {
-		return deserializer;
+	public MetaDataBlockHeader(final boolean isLast, final MetaDataBlockDataType dataType, final int dataLength) {
+		this.last = isLast;
+		this.dataType = dataType;
+		this.dataLength = dataLength;
+	}
+	
+	public void write(OutputStream os) {
+		byte[] data = new byte[4];
+		data[0] = (byte) (this.last ? 1 << 7 : 0 | this.dataType.getId());
+		data[1] = (byte) (this.dataLength >> 16);
+		data[2] = (byte) (this.dataLength >> 8);
+		data[3] = (byte) (this.dataLength);
 	}
 	
 	public boolean isLastMetaData() {
-		return data[0] >>7 == 1;
+		return this.last;
 	}
 	
 	public MetaDataBlockDataType getMetaDataBlockDataType() {
-		byte msb = data[0] &= 01111;
-		return null;
+		return this.dataType;
+	}
+	
+	public int getLength() {
+		return dataLength;
 	}
 }

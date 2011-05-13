@@ -14,22 +14,18 @@
  */
 package org.jflac.data.format;
 
-import org.jflac.data.Deserializer;
-import org.jflac.data.impl.MetaDataBlockStreamInfoDeserializer;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
 public enum MetaDataBlockDataType {
-	STREAMINFO(0, MetaDataBlockStreamInfoDeserializer.getInstance());
+	STREAMINFO(0);
 
 	private int id;
-	private Deserializer<? extends MetaDataBlockData> serializer;
 
-	private MetaDataBlockDataType(final int id, Deserializer<? extends MetaDataBlockData> serializer) {
+	private MetaDataBlockDataType(final int id) {
 		this.id = id;
-		this.serializer = serializer;
 	}
 
 	public static MetaDataBlockDataType getFromId(final int id) {
@@ -41,7 +37,7 @@ public enum MetaDataBlockDataType {
 		return null;
 	}
 	
-	public Deserializer<? extends MetaDataBlockData> serializer() {
-		return this.serializer;
+	public int getId() {
+		return this.id;
 	}
 }
