@@ -14,10 +14,38 @@
  */
 package org.jflac.data.format;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Arrays;
+
+import org.jflac.FlacDataException;
+import org.jflac.data.format.util.ByteHelper;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
 public class MetaDataBlockApplication extends MetaDataBlockData {
+	private int applicationId;
+	private byte[] data;
+
+	public MetaDataBlockApplication(final int blockLength) {
+		super(blockLength);
+	}
+
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		this.applicationId = ByteHelper.makeInt(this.blockData[0], this.blockData[1],
+				this.blockData[2], this.blockData[3]);
+		this.data = Arrays.copyOfRange(this.blockData, 4, this.blockData.length);
+	}
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
 
 }

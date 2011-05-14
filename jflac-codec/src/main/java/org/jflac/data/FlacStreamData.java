@@ -15,12 +15,22 @@
 package org.jflac.data;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
 public interface FlacStreamData {
+	/**
+	 * @param is
+	 * @throws IOException
+	 * @throws FlacDataException
+	 */
+	void read(InputStream is) throws IOException, FlacDataException;
+
 	void write(OutputStream os) throws IOException;
 }

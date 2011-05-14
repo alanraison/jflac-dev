@@ -26,14 +26,15 @@ import org.jflac.data.FlacStreamData;
  * 
  */
 public class MetaDataBlockHeader implements FlacStreamData {
-	private final boolean last;
-	private final MetaDataBlockDataType dataType;
-	private final int dataLength;
-	
-	public MetaDataBlockHeader(final InputStream is) throws IOException, FlacDataException
+	private boolean last;
+	private MetaDataBlockDataType dataType;
+	private int dataLength;
+
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException
 	{
-		byte[] data = new byte[4];
-		int length = is.read(data);
+		final byte[] data = new byte[4];
+		final int length = is.read(data);
 		if (length == 4) {
 			this.last = data[0] >>7 == 1;
 			this.dataType = MetaDataBlockDataType.getFromId(data[0] & 0x7F);
@@ -42,30 +43,26 @@ public class MetaDataBlockHeader implements FlacStreamData {
 			throw new FlacDataException("Failed to read MetaDataBlockHeader");
 		}
 	}
-	
-	public MetaDataBlockHeader(final boolean isLast, final MetaDataBlockDataType dataType, final int dataLength) {
-		this.last = isLast;
-		this.dataType = dataType;
-		this.dataLength = dataLength;
-	}
-	
-	public void write(OutputStream os) {
-		byte[] data = new byte[4];
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		final byte[] data = new byte[4];
 		data[0] = (byte) (this.last ? 1 << 7 : 0 | this.dataType.getId());
 		data[1] = (byte) (this.dataLength >> 16);
 		data[2] = (byte) (this.dataLength >> 8);
 		data[3] = (byte) (this.dataLength);
+		os.write(data);
 	}
-	
+
 	public boolean isLastMetaData() {
 		return this.last;
 	}
-	
+
 	public MetaDataBlockDataType getMetaDataBlockDataType() {
 		return this.dataType;
 	}
-	
+
 	public int getLength() {
-		return dataLength;
+		return this.dataLength;
 	}
 }

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.jflac.data.Deserializer;
+import org.jflac.FlacDataException;
 import org.jflac.data.FlacStreamData;
 
 /**
@@ -26,54 +26,48 @@ import org.jflac.data.FlacStreamData;
  * 
  */
 public class MetaDataBlock implements FlacStreamData {
-
 	private MetaDataBlockHeader header;
 	private MetaDataBlockData data;
-	
+
 	@Override
-	public void read(InputStream is) throws IOException {
-		setHeader(MetaDataBlockHeader.read(is));
-		setData(MetaDataBlockData.read(is));
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		this.header = new MetaDataBlockHeader();
+		this.header.read(is);
+		this.data = null;
 	}
-	
-	public void write(final Class<MetaDataBlock> clazz, final MetaDataBlock t,
-			final OutputStream os) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	@Override
-	public void write(OutputStream os) throws IOException {
+	public void write(final OutputStream os) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	/**
 	 * @return the header
 	 */
 	public MetaDataBlockHeader getHeader() {
-		return header;
+		return this.header;
 	}
-	
+
 	/**
 	 * @param header the header to set
 	 */
 	public void setHeader(final MetaDataBlockHeader header) {
 		this.header = header;
 	}
-	
+
 	/**
 	 * @return the data
 	 */
 	public MetaDataBlockData getData() {
-		return data;
+		return this.data;
 	}
-	
+
 	/**
 	 * @param data the data to set
 	 */
 	public void setData(final MetaDataBlockData data) {
 		this.data = data;
 	}
-	
+
 }

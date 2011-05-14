@@ -14,10 +14,35 @@
  */
 package org.jflac.data.format;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jflac.FlacDataException;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
 public class MetaDataBlockVorbisComment extends MetaDataBlockData {
 
+	/**
+	 * @param blockLength
+	 */
+	public MetaDataBlockVorbisComment(final int blockLength) {
+		super(blockLength);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
 }

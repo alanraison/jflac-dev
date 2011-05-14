@@ -14,10 +14,39 @@
  */
 package org.jflac.data.format;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jflac.FlacDataException;
+
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
 public class MetaDataBlockPicture extends MetaDataBlockData {
+
+	/**
+	 * @param blockLength
+	 */
+	public MetaDataBlockPicture(final int blockLength) {
+		super(blockLength);
+		// TODO Auto-generated constructor stub
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jflac.data.format.MetaDataBlockData#read(java.io.InputStream)
+	 */
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
 
 }
