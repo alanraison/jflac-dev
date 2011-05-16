@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import org.jflac.FlacDataException;
 import org.jflac.data.format.Frame;
 import org.jflac.data.format.MetaDataBlock;
 import org.jflac.data.format.Stream;
@@ -27,6 +28,6 @@ import org.jflac.data.format.Stream;
  *
  */
 public interface StreamDeserializer extends Deserializer<Stream> {
-	Collection<MetaDataBlock> readMetaData(InputStream is) throws IOException;
-	Frame readDataFrame(InputStream is) throws IOException;
+	Collection<MetaDataBlock> readMetaData(InputStream is) throws IOException, FlacDataException;
+	Frame readDataFrame(InputStream is) throws IOException, FlacDataException;
 }

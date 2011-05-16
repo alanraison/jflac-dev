@@ -22,8 +22,9 @@ import org.jflac.FlacDataException;
 import org.jflac.data.FlacStreamData;
 
 /**
- * @author alanraison <alanraison@users.sourceforge.net>
+ * A FLAC MetaDataBlock
  * 
+ * @author alanraison <alanraison@users.sourceforge.net>
  */
 public class MetaDataBlock implements FlacStreamData {
 	private MetaDataBlockHeader header;
@@ -33,13 +34,16 @@ public class MetaDataBlock implements FlacStreamData {
 	public void read(final InputStream is) throws IOException, FlacDataException {
 		this.header = new MetaDataBlockHeader();
 		this.header.read(is);
-		this.data = null;
+		switch (this.header.getMetaDataBlockDataType()) {
+		case STREAMINFO:
+			this.data = new MetaDataBlockStreamInfo();
+		}
 	}
 
 	@Override
 	public void write(final OutputStream os) throws IOException {
-		// TODO Auto-generated method stub
-
+		this.header.write(os);
+		this.data.write(os);
 	}
 
 	/**

@@ -20,7 +20,7 @@ import org.junit.Test;
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
-public class FormatTest {
+public class MetaDataStreamInfoTest {
 	@Test
 	public void testMetaDataSerialization() {
 		final MetaDataBlock mdb = new MetaDataBlock();
