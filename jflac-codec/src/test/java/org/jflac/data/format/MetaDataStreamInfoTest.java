@@ -21,8 +21,18 @@ import org.junit.Test;
  *
  */
 public class MetaDataStreamInfoTest {
+	private static int TEST_INT_1 = 252334330;
+	private static byte[] TEST_INT_1_BYTES = new byte[] {
+		(byte) 0x0F, (byte) 0x0A, (byte) 0x50, (byte) 0xFA,
+	};
+	private static int TEST_INT_2 = Integer.MAX_VALUE;
+	private static byte[] TEST_INT_2_BYTES = new byte[] {
+		(byte) 0x7F, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+	};
 	@Test
-	public void testMetaDataSerialization() {
-		final MetaDataBlock mdb = new MetaDataBlock();
+	public void testSerialization() {
+		final MetaDataBlockStreamInfo si = new MetaDataBlockStreamInfo();
+		si.setMinBlockSize(TEST_INT_1);
+		si.setMaxBlockSize(TEST_INT_2);
 	}
 }
