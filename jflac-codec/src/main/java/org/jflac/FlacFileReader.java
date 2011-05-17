@@ -25,7 +25,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.spi.AudioFileReader;
 
+import org.jflac.data.format.Stream;
 import org.jflac.data.impl.StreamSerializer;
+import org.jflac.spi.FlacFileFormat;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
@@ -35,6 +37,8 @@ public class FlacFileReader extends AudioFileReader {
 	/** The FLAC identifier block */
 	public static final byte[] FLAC_ID = { (byte) 0x66, (byte) 0x4C,
 			(byte) 0x61, (byte) 0x43 };
+	/** Byte Order of FLAC files */
+	private static final boolean BIG_ENDIAN = true;
 
 	/*
 	 * (non-Javadoc)
@@ -47,13 +51,17 @@ public class FlacFileReader extends AudioFileReader {
 			throws UnsupportedAudioFileException, IOException {
 		// Mark the stream so that we can reset afterwards (if possible)
 		if (stream.markSupported()) {
-			stream.mark(5); // TODO: is this a sensible limit?
+			stream.mark(4);
 		}
 		try {
-			StreamSerializer.getInstance().read(stream);
+			byte[] read = new byte[4];
+			stream.read(read);
+			
 		} catch (IOException e) {
 			throw new UnsupportedAudioFileException("Could not locate FLAC file marker");
 		}
+		
+		AudioFileFormat aff = new AudioFileFormat(FlacFileFormat.FLAC, format, frameLength)
 		
 		final byte[] header = new byte[4];
 		stream.read(header);

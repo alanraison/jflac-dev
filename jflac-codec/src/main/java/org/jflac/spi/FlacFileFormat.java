@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU Lesser Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.jflac;
+package org.jflac.spi;
 
 import java.util.Map;
 
