@@ -22,7 +22,7 @@ public class ByteHelper {
 	public static int makeInt(final byte... b) {
 		int res = 0;
 		for (int i = b.length - 1, shift = 0; i >= 0; i--, shift += 8) {
-			res |= ( b[i] << shift );
+			res |= ( b[i] & 0xFF ) << shift;
 		}
 		return res;
 	}
