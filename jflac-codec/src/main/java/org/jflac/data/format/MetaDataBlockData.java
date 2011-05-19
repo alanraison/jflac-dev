@@ -16,6 +16,7 @@ package org.jflac.data.format;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.jflac.FlacDataException;
 import org.jflac.data.FlacStreamData;
@@ -42,5 +43,10 @@ public abstract class MetaDataBlockData implements FlacStreamData {
 					"Bytes read differs from expected length: expected %d, actual %d",
 					this.blockData.length, readLength));
 		}
+	}
+	
+	@Override
+	public void write(OutputStream os) throws IOException {
+		os.write(this.blockData);
 	}
 }
