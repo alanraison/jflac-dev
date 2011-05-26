@@ -15,12 +15,6 @@
  */
 package org.jflac.data.format;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.jflac.FlacDataException;
-
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
@@ -32,16 +26,6 @@ public class MetaDataBlockPadding extends MetaDataBlockData {
 	 */
 	public MetaDataBlockPadding(final int blockLength) {
 		super(blockLength);
-	}
-
-	@Override
-	public void read(final InputStream is) throws IOException, FlacDataException {
-		super.read(is);
-	}
-
-	@Override
-	public void write(final OutputStream os) throws IOException {
-		os.write(new byte[this.blockData.length]);
 	}
 
 }
