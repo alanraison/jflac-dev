@@ -1,22 +1,22 @@
 /**
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package org.jflac.spi;
 
 import java.util.Map;
 
-import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 
 /**
@@ -34,9 +34,9 @@ public class FlacFormat extends AudioFormat {
 	 * @param frameRate
 	 * @param properties
 	 */
-	public FlacFormat(Encoding encoding, float sampleRate,
-			int sampleSizeInBits, int channels, int frameSize, float frameRate,
-			Map<String, Object> properties) {
+	public FlacFormat(final Encoding encoding, final float sampleRate,
+			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate,
+			final Map<String, Object> properties) {
 		super(encoding, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN, properties);
 		// TODO Auto-generated constructor stub
@@ -50,8 +50,8 @@ public class FlacFormat extends AudioFormat {
 	 * @param frameSize
 	 * @param frameRate
 	 */
-	public FlacFormat(Encoding encoding, float sampleRate,
-			int sampleSizeInBits, int channels, int frameSize, float frameRate) {
+	public FlacFormat(final Encoding encoding, final float sampleRate,
+			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate) {
 		super(encoding, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN);
 		// TODO Auto-generated constructor stub
@@ -63,8 +63,8 @@ public class FlacFormat extends AudioFormat {
 	 * @param channels
 	 * @param signed
 	 */
-	public FlacFormat(float sampleRate, int sampleSizeInBits, int channels,
-			boolean signed) {
+	public FlacFormat(final float sampleRate, final int sampleSizeInBits, final int channels,
+			final boolean signed) {
 		super(sampleRate, sampleSizeInBits, channels, signed, BIG_ENDIAN);
 		// TODO Auto-generated constructor stub
 	}

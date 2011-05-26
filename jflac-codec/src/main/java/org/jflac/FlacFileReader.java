@@ -1,16 +1,17 @@
 /**
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package org.jflac;
 
@@ -36,7 +37,7 @@ import org.jflac.spi.FlacFileFormat;
 public class FlacFileReader extends AudioFileReader {
 	/** The FLAC identifier block */
 	public static final byte[] FLAC_ID = { (byte) 0x66, (byte) 0x4C,
-			(byte) 0x61, (byte) 0x43 };
+		(byte) 0x61, (byte) 0x43 };
 	/** Byte Order of FLAC files */
 	private static final boolean BIG_ENDIAN = true;
 
@@ -48,21 +49,21 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioFileFormat getAudioFileFormat(final InputStream stream)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// Mark the stream so that we can reset afterwards (if possible)
 		if (stream.markSupported()) {
 			stream.mark(4);
 		}
 		try {
-			byte[] read = new byte[4];
+			final byte[] read = new byte[4];
 			stream.read(read);
-			
-		} catch (IOException e) {
+
+		} catch (final IOException e) {
 			throw new UnsupportedAudioFileException("Could not locate FLAC file marker");
 		}
-		
-		AudioFileFormat aff = new AudioFileFormat(FlacFileFormat.FLAC, format, frameLength)
-		
+
+		final AudioFileFormat aff = new AudioFileFormat(FlacFileFormat.FLAC, format, frameLength)
+
 		final byte[] header = new byte[4];
 		stream.read(header);
 
@@ -95,7 +96,7 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioFileFormat getAudioFileFormat(final URL url)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -108,7 +109,7 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioFileFormat getAudioFileFormat(final File file)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -121,7 +122,7 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioInputStream getAudioInputStream(final InputStream stream)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -134,7 +135,7 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioInputStream getAudioInputStream(final URL url)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -147,7 +148,7 @@ public class FlacFileReader extends AudioFileReader {
 	 */
 	@Override
 	public AudioInputStream getAudioInputStream(final File file)
-			throws UnsupportedAudioFileException, IOException {
+	throws UnsupportedAudioFileException, IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
