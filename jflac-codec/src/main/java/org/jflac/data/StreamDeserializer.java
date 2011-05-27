@@ -21,8 +21,8 @@ import java.util.Collection;
 
 import org.jflac.FlacDataException;
 import org.jflac.data.format.Frame;
-import org.jflac.data.format.MetaDataBlock;
 import org.jflac.data.format.Stream;
+import org.jflac.data.format.meta.MetaDataBlock;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>

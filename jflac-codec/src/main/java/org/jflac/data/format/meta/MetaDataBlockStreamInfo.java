@@ -13,7 +13,7 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.format.meta;
 
 import java.io.IOException;
 import java.io.OutputStream;

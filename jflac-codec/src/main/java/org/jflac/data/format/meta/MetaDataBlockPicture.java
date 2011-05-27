@@ -13,41 +13,41 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.format.meta;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.jflac.FlacDataException;
-import org.jflac.data.FlacStreamData;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
- *
+ * 
  */
-public abstract class MetaDataBlockData implements FlacStreamData {
-	protected byte[] blockData;
+public class MetaDataBlockPicture extends MetaDataBlockData {
 
 	/**
-	 * @param blockLength the length, in bytes, of the data block
+	 * @param blockLength
 	 */
-	public MetaDataBlockData(final int blockLength) {
-		this.blockData = new byte[blockLength];
+	public MetaDataBlockPicture(final int blockLength) {
+		super(blockLength);
+		// TODO Auto-generated constructor stub
+	}
+
+	/* (non-Javadoc)
+	 * @see org.jflac.data.format.MetaDataBlockData#read(java.io.InputStream)
+	 */
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void read(final InputStream is) throws IOException, FlacDataException {
-		final int readLength = is.read(this.blockData);
-		if (readLength != this.blockData.length) {
-			throw new FlacDataException(String.format(
-					"Bytes read differs from expected length: expected %d, actual %d",
-					this.blockData.length, readLength));
-		}
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
 	}
-	
-	@Override
-	public void write(OutputStream os) throws IOException {
-		os.write(this.blockData);
-	}
+
 }

@@ -13,19 +13,37 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.format.meta;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public class MetaDataBlockPadding extends MetaDataBlockData {
+public class MetaDataBlockSeekTable extends MetaDataBlockData {
 
 	/**
 	 * @param blockLength
 	 */
-	public MetaDataBlockPadding(final int blockLength) {
+	public MetaDataBlockSeekTable(final int blockLength) {
 		super(blockLength);
+		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
+	}
 }

@@ -13,32 +13,37 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.format.meta;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public enum MetaDataBlockDataType {
-	STREAMINFO(0);
+public class MetaDataBlockVorbisComment extends MetaDataBlockData {
 
-	private int id;
-
-	private MetaDataBlockDataType(final int id) {
-		this.id = id;
+	/**
+	 * @param blockLength
+	 */
+	public MetaDataBlockVorbisComment(final int blockLength) {
+		super(blockLength);
+		// TODO Auto-generated constructor stub
 	}
 
-	public static MetaDataBlockDataType getFromId(final int id) {
-		for (final MetaDataBlockDataType type : MetaDataBlockDataType.values()) {
-			if (type.id == id) {
-				return type;
-			}
-		}
-		return null;
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
+		// TODO Auto-generated method stub
 	}
 
-	public int getId() {
-		return this.id;
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -14,6 +14,7 @@
  */
 package org.jflac.data.format;
 
+import org.jflac.data.format.meta.MetaDataBlockStreamInfo;
 import org.junit.Test;
 
 /**

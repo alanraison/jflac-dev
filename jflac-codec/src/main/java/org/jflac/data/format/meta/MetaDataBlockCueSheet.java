@@ -13,47 +13,37 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package org.jflac.data.format;
+package org.jflac.data.format.meta;
 
-import org.jflac.data.format.util.ByteHelper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
-public class MetaDataBlockApplication extends MetaDataBlockData {
+public class MetaDataBlockCueSheet extends MetaDataBlockData {
 
-	public MetaDataBlockApplication(final int blockLength) {
+	/**
+	 * @param blockLength
+	 */
+	public MetaDataBlockCueSheet(final int blockLength) {
 		super(blockLength);
+		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @return the applicationId
-	 */
-	public int getApplicationId() {
-		return ByteHelper.makeInt(blockData[0], blockData[1], blockData[2], blockData[3]);
+	@Override
+	public void read(final InputStream is) throws IOException, FlacDataException {
+		super.read(is);
 	}
-	
-	/**
-	 * @param applicationId the applicationId to set
-	 */
-	public void setApplicationId(int applicationId) {
-		this.applicationId = applicationId;
-	}
-	
-	/**
-	 * @return the data
-	 */
-	public byte[] getData() {
-		return data;
-	}
-	
-	/**
-	 * @param data the data to set
-	 */
-	public void setData(byte[] data) {
-		this.data = data;
+
+	@Override
+	public void write(final OutputStream os) throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

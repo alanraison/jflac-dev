@@ -26,6 +26,7 @@ import java.util.List;
 import org.jflac.FlacDataException;
 import org.jflac.data.FlacStreamData;
 import org.jflac.data.StreamDeserializer;
+import org.jflac.data.format.meta.MetaDataBlock;
 
 /**
  * Container for a FLAC stream.

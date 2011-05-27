@@ -27,24 +27,40 @@ import javax.sound.sampled.AudioFormat;
 public class FlacFileFormat extends AudioFileFormat {
 
 	/** The FLAC file type */
-	public static final Type FLAC = new Type("FLAC", "flac");
-
-	public FlacFileFormat(final Type type, final AudioFormat format,
-			final int frameLength, final Map<String, Object> properties) {
+	public static final Type FLAC_NATIVE = new Type("FLAC", "flac");
+	public static final Type FLAC_OGG = new Type("OGG", "ogg");
+	
+	/**
+	 * @param type
+	 * @param format
+	 * @param frameLength
+	 * @param properties
+	 */
+	public FlacFileFormat(Type type, AudioFormat format, int frameLength,
+			Map<String, Object> properties) {
 		super(type, format, frameLength, properties);
 		// TODO Auto-generated constructor stub
 	}
-
-	public FlacFileFormat(final Type type, final AudioFormat format,
-			final int frameLength) {
+	/**
+	 * @param type
+	 * @param format
+	 * @param frameLength
+	 */
+	public FlacFileFormat(Type type, AudioFormat format, int frameLength) {
 		super(type, format, frameLength);
 		// TODO Auto-generated constructor stub
 	}
-
-	public FlacFileFormat(final Type type, final int byteLength,
-			final AudioFormat format, final int frameLength) {
+	/**
+	 * @param type
+	 * @param byteLength
+	 * @param format
+	 * @param frameLength
+	 */
+	public FlacFileFormat(Type type, int byteLength, AudioFormat format,
+			int frameLength) {
 		super(type, byteLength, format, frameLength);
 		// TODO Auto-generated constructor stub
 	}
 
+	
 }
