@@ -20,6 +20,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
+import org.junit.Ignore;
+
 /**
  * 
  */
@@ -35,13 +37,14 @@ import javax.sound.sampled.AudioSystem;
  * 
  * @author Florian Bomers
  */
+@Ignore("Not a JUnit Test class")
 public class TestJavaSoundSPI {
 
-	private static boolean isSameBitsChannelSampleRate(AudioFormat af1,
-			AudioFormat af2) {
+	private static boolean isSameBitsChannelSampleRate(final AudioFormat af1,
+			final AudioFormat af2) {
 		return (af1.getSampleSizeInBits() == af2.getSampleSizeInBits())
-				&& (af1.getChannels() == af2.getChannels())
-				&& (af1.getSampleRate() == af2.getSampleRate());
+		&& (af1.getChannels() == af2.getChannels())
+		&& (af1.getSampleRate() == af2.getSampleRate());
 	}
 
 	/**
@@ -49,13 +52,13 @@ public class TestJavaSoundSPI {
 	 *            test
 	 * @return true if test succeeded
 	 */
-	private static boolean checkConversion(AudioFormat srcFormat,
-			AudioFormat targetFormat, boolean neg) {
-		AudioInputStream srcStream = new AudioInputStream(
+	private static boolean checkConversion(final AudioFormat srcFormat,
+			AudioFormat targetFormat, final boolean neg) {
+		final AudioInputStream srcStream = new AudioInputStream(
 				new ByteArrayInputStream(new byte[0]), srcFormat, -1);
 		boolean couldConvert = true;
 		try {
-			AudioInputStream targetStream = AudioSystem.getAudioInputStream(
+			final AudioInputStream targetStream = AudioSystem.getAudioInputStream(
 					targetFormat, srcStream);
 			// always a failure if src bits != target bits, or src channels !=
 			// target channels
@@ -71,7 +74,7 @@ public class TestJavaSoundSPI {
 						+ " bits, and " + srcFormat.getSampleRate() + "Hz");
 				return false;
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			couldConvert = false;
 		}
 		if (couldConvert == neg) {
@@ -84,17 +87,17 @@ public class TestJavaSoundSPI {
 		return true;
 	}
 
-	private static boolean checkConversion(AudioFormat srcFormat,
-			AudioFormat.Encoding targetEncoding, boolean neg) {
-		AudioInputStream srcStream = new AudioInputStream(
+	private static boolean checkConversion(final AudioFormat srcFormat,
+			final AudioFormat.Encoding targetEncoding, final boolean neg) {
+		final AudioInputStream srcStream = new AudioInputStream(
 				new ByteArrayInputStream(new byte[0]), srcFormat, -1);
 		boolean couldConvert = true;
 		try {
-			AudioInputStream targetStream = AudioSystem.getAudioInputStream(
+			final AudioInputStream targetStream = AudioSystem.getAudioInputStream(
 					targetEncoding, srcStream);
 			// always a failure if src bits != target bits, or src channels !=
 			// target channels
-			AudioFormat targetFormat = targetStream.getFormat();
+			final AudioFormat targetFormat = targetStream.getFormat();
 			if (!isSameBitsChannelSampleRate(srcFormat, targetFormat)) {
 				System.out.println("ERROR");
 				System.out.println("  converted stream has "
@@ -106,7 +109,7 @@ public class TestJavaSoundSPI {
 						+ " bits, and " + srcFormat.getSampleRate() + "Hz");
 				return false;
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			couldConvert = false;
 		}
 		if (couldConvert == neg) {
@@ -119,8 +122,8 @@ public class TestJavaSoundSPI {
 		return true;
 	}
 
-	private static boolean checkDirect(AudioFormat srcFormat, boolean neg) {
-		AudioFormat targetFormat = new AudioFormat(srcFormat.getSampleRate(),
+	private static boolean checkDirect(final AudioFormat srcFormat, final boolean neg) {
+		final AudioFormat targetFormat = new AudioFormat(srcFormat.getSampleRate(),
 				srcFormat.getSampleSizeInBits(), srcFormat.getChannels(), true,
 				false);
 		return checkConversion(srcFormat, targetFormat, neg);
@@ -134,13 +137,13 @@ public class TestJavaSoundSPI {
 		boolean success = true;
 		try {
 			System.out.println("Positive tests that setting up a decoded stream works.");
-			int[] bitsOK = {
+			final int[] bitsOK = {
 					8, 16, 24
 			};
 			for (int channel = 1; channel <= 2; channel++) {
 				for (int bit = 0; bit < bitsOK.length; bit++) {
-					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
+					final AudioFormat srcFormat = new AudioFormat(
+							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
 							16000, bitsOK[bit], channel, -1, -1, false);
 					System.out.print("can convert 1: " + channel + "-channel, "
 							+ bitsOK[bit] + "-bit FLAC to PCM...");
@@ -158,44 +161,44 @@ public class TestJavaSoundSPI {
 
 			System.out.println();
 			System.out.println("Negative tests that the decoder does not claim to be able to convert non-supported formats.");
-			int[] bitsCorrupt = {
+			final int[] bitsCorrupt = {
 					0, 4, 10, 20, 32
 			};
 			for (int channel = 2; channel <= 3; channel++) {
 				for (int bit = 0; bit < bitsCorrupt.length; bit++) {
-					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
+					final AudioFormat srcFormat = new AudioFormat(
+							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
 							16000, bitsCorrupt[bit], channel, -1, -1, false);
 					System.out.print("cannot convert 1: " + channel
 							+ "-channel, " + bitsCorrupt[bit]
-							+ "-bit FLAC to PCM...");
+							                             + "-bit FLAC to PCM...");
 					if (!checkDirect(srcFormat, true)) {
 						success = false;
 					}
 					System.out.print("cannot convert 2: " + channel
 							+ "-channel, " + bitsCorrupt[bit]
-							+ "-bit FLAC to PCM...");
+							                             + "-bit FLAC to PCM...");
 					if (!checkConversion(srcFormat,
 							AudioFormat.Encoding.PCM_SIGNED, true)) {
 						success = false;
 					}
 				}
 			}
-			int[] channelsCorrupt = {
+			final int[] channelsCorrupt = {
 					0, 3, 5, 10
 			};
 			for (int i = 0; i < channelsCorrupt.length; i++) {
 				for (int bit = 16; bit < 40; bit += 16) {
-					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
+					final AudioFormat srcFormat = new AudioFormat(
+							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
 							16000, bit, channelsCorrupt[i], -1, -1, false);
 					System.out.print("cannot convert 1: " + channelsCorrupt[i]
-							+ "-channel, " + bit + "-bit FLAC to PCM...");
+					                                                        + "-channel, " + bit + "-bit FLAC to PCM...");
 					if (!checkDirect(srcFormat, true)) {
 						success = false;
 					}
 					System.out.print("cannot convert 2: " + channelsCorrupt[i]
-							+ "-channel, " + bit + "-bit FLAC to PCM...");
+					                                                        + "-channel, " + bit + "-bit FLAC to PCM...");
 					if (!checkConversion(srcFormat,
 							AudioFormat.Encoding.PCM_SIGNED, true)) {
 						success = false;
@@ -205,7 +208,7 @@ public class TestJavaSoundSPI {
 			System.out.println();
 			System.out.println("Negative tests that the decoder does not claim to be able to convert bits, sample rate, or channels");
 
-			float[] sampleRatesOK = {
+			final float[] sampleRatesOK = {
 					16000, 22050, 44100, 96000
 			};
 
@@ -215,20 +218,20 @@ public class TestJavaSoundSPI {
 						for (int targetBitIndex = 0; targetBitIndex < bitsOK.length; targetBitIndex++) {
 							for (int srcSampleRateIndex = 0; srcSampleRateIndex < sampleRatesOK.length; srcSampleRateIndex++) {
 								for (int targetSampleRateIndex = 0; targetSampleRateIndex < sampleRatesOK.length; targetSampleRateIndex++) {
-									int srcBit = bitsOK[srcBitIndex];
-									int targetBit = bitsOK[targetBitIndex];
-									float srcSampleRate = sampleRatesOK[srcSampleRateIndex];
-									float targetSampleRate = sampleRatesOK[targetSampleRateIndex];
+									final int srcBit = bitsOK[srcBitIndex];
+									final int targetBit = bitsOK[targetBitIndex];
+									final float srcSampleRate = sampleRatesOK[srcSampleRateIndex];
+									final float targetSampleRate = sampleRatesOK[targetSampleRateIndex];
 									if ((srcBit != targetBit)
 											|| (srcChannel != targetChannel)
 											|| (srcSampleRate != targetSampleRate)) {
 										// OK, at least one combination of
 										// src/target parameters is not the same
-										AudioFormat srcFormat = new AudioFormat(
-												org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
+										final AudioFormat srcFormat = new AudioFormat(
+												org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
 												srcSampleRate, srcBit,
 												srcChannel, -1, -1, false);
-										AudioFormat targetFormat = new AudioFormat(
+										final AudioFormat targetFormat = new AudioFormat(
 												targetSampleRate, targetBit,
 												targetChannel, true, false);
 										System.out.print("cannot convert: "
@@ -255,12 +258,12 @@ public class TestJavaSoundSPI {
 
 			for (int srcChannel = 1; srcChannel <= 2; srcChannel++) {
 				for (int srcBitIndex = 0; srcBitIndex < bitsOK.length; srcBitIndex++) {
-					int srcBit = bitsOK[srcBitIndex];
-					float srcSampleRate = 22050;
-					AudioFormat srcFormat = new AudioFormat(
-							org.kc7bfi.jflac.sound.spi.FlacAudioType.FLAC,
+					final int srcBit = bitsOK[srcBitIndex];
+					final float srcSampleRate = 22050;
+					final AudioFormat srcFormat = new AudioFormat(
+							org.kc7bfi.jflac.sound.spi.FlacEncoding.FLAC,
 							srcSampleRate, srcBit, srcChannel, -1, -1, false);
-					AudioFormat targetFormat = new AudioFormat(srcSampleRate,
+					final AudioFormat targetFormat = new AudioFormat(srcSampleRate,
 							srcBit, srcChannel, true, true);
 					System.out.print("cannot convert: " + srcChannel
 							+ "-channel, " + srcBit + "-bit" + " FLAC to "
@@ -272,7 +275,7 @@ public class TestJavaSoundSPI {
 				}
 			}
 
-		} catch (Throwable t) {
+		} catch (final Throwable t) {
 			t.printStackTrace();
 			success = false;
 		}
@@ -287,7 +290,7 @@ public class TestJavaSoundSPI {
 		return success;
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		if (runTest()) {
 			System.out.println("TEST OK");
 			System.exit(0);
