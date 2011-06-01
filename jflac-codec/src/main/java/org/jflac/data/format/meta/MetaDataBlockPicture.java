@@ -15,11 +15,6 @@
  */
 package org.jflac.data.format.meta;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
@@ -27,6 +22,71 @@ import org.jflac.FlacDataException;
  */
 public class MetaDataBlockPicture extends MetaDataBlockData {
 
+	// TODO: this should probably be available in the public API
+	public static enum PictureType {
+		/** Other */
+		OTHER(0),
+		/** 32x32 'file icon' (PNG) */
+		FILE_ICON(1),
+		/** Other file icon */
+		OTHER_FILE_ICON(2),
+		/** Cover (front) */
+		FRONT_COVER(3),
+		/** Cover (back) */
+		BACK_COVER(4),
+		/** Leaflet page */
+		LEAFLET(5),
+		/** Media (e.g. label side of CD */
+		MEDIA(6),
+		/** Lead Artist/lead performer/soloist */
+		LEAD_ARTIST(7),
+		/** Artist/Performer */
+		ARTIST(8),
+		/** Conductor */
+		CONDUCTOR(9),
+		/** Band/Orchestra */
+		BAND(10),
+		/** Composer */
+		COMPOSER(11),
+		/** Lyricist/text writer */
+		LYRICIST(12),
+		/** Recording Location */
+		RECORDING_LOCATION(13),
+		/** During recording */
+		DURING_RECORDING(14),
+		/** During performance */
+		DURING_PERFORMANCE(15),
+		/** Movie/video screen capture */
+		MOVIE(16),
+		/** A bright coloured fish (?!) */
+		FISH(17),
+		/** Illustration */
+		ILLUSTRATION(18),
+		/** Band/artist logotype */
+		BAND_LOGO(19),
+		/** Publisher/Studio logotype */
+		PUBLISHER_LOGO(20);
+		
+		private int id;
+		
+		private PictureType(int id) {
+			this.id = id;
+		}
+		
+		public int getId() {
+			return this.id;
+		}
+		
+		public static PictureType getFromId(int id) {
+			for (PictureType pictureType : PictureType.values()) {
+				if (pictureType.getId() == id) {
+					return pictureType;
+				}
+			}
+			return null;
+		}
+	}
+	
 	/**
 	 * @param blockLength
 	 */
@@ -35,19 +95,69 @@ public class MetaDataBlockPicture extends MetaDataBlockData {
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jflac.data.format.MetaDataBlockData#read(java.io.InputStream)
-	 */
-	@Override
-	public void read(final InputStream is) throws IOException, FlacDataException {
-		super.read(is);
-		// TODO Auto-generated method stub
+	public String getMimeType() {
+		// TODO: complete
+		return null;
 	}
-
-	@Override
-	public void write(final OutputStream os) throws IOException {
-		// TODO Auto-generated method stub
-
+	
+	public void setMimeType(String mimeType) {
+		// TODO
+		// remember to set mimetype length
 	}
-
+	
+	public String getDescription() {
+		// TODO
+		return null;
+	}
+	
+	public void setDescription(String description) {
+		// TODO
+		// remember to set description length
+	}
+	
+	public int getWidth() {
+		// TODO
+		return 0;
+	}
+	
+	public void setWidth(int width) {
+		// TODO
+	}
+	
+	public int getHeight() {
+		// TODO
+		return 0;
+	}
+	
+	public void setHeight(int height) {
+		// TODO
+	}
+	
+	public int getDepth() {
+		// TODO
+		return 0;
+	}
+	
+	public void setDepth(int depth) {
+		// TODO
+	}
+	
+	public int getIndexedColourCount() {
+		// TODO
+		return 0;
+	}
+	
+	public void setIndexedColourCount(int count) {
+		// TODO
+	}
+	
+	public byte[] getPictureData() {
+		// TODO
+		return null;
+	}
+	
+	public void setPictureData(byte[] data) {
+		// TODO
+		// remember to set length of data
+	}
 }
