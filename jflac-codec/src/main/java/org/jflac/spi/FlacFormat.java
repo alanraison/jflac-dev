@@ -24,6 +24,7 @@ import javax.sound.sampled.AudioFormat;
  *
  */
 public class FlacFormat extends AudioFormat {
+
 	private static final boolean BIG_ENDIAN = true;
 	/**
 	 * @param encoding

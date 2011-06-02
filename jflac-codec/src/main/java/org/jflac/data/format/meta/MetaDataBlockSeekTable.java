@@ -15,35 +15,34 @@
  */
 package org.jflac.data.format.meta;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.jflac.FlacDataException;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  * 
  */
 public class MetaDataBlockSeekTable extends MetaDataBlockData {
-
+	private final int count;
 	/**
 	 * @param blockLength
 	 */
 	public MetaDataBlockSeekTable(final int blockLength) {
 		super(blockLength);
-		// TODO Auto-generated constructor stub
+		this.count = blockLength / 18;
 	}
 
-	@Override
-	public void read(final InputStream is) throws IOException, FlacDataException {
-		super.read(is);
-		// TODO Auto-generated method stub
+	public Seekpoint[] getSeekpoints() {
+		// TODO
+		return null;
 	}
 
-	@Override
-	public void write(final OutputStream os) throws IOException {
-		// TODO Auto-generated method stub
+	public void setSeekpoints(final Seekpoint[] seekpoints) {
+		// TODO
+	}
 
+	public void setSeekpoint(final int index, final Seekpoint seekpoint) {
+		// TODO
+		if (index >= this.count) {
+			throw new IndexOutOfBoundsException("Array contains " + this.count + " elements");
+		}
 	}
 }

@@ -37,9 +37,6 @@ public abstract class AbstractTestCase extends TestCase {
 		super(testName);
 	}
 
-	protected AbstractTestCase() {
-	}
-
 	/**
 	 * Get test input file.
 	 *

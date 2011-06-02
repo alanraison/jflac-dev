@@ -26,7 +26,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.spi.AudioFileReader;
 
-import org.jflac.data.format.Stream;
+import org.jflac.data.format.meta.MetaDataBlockHeader;
 import org.jflac.spi.FlacFileFormat;
 
 /**
@@ -69,6 +69,14 @@ public class FlacNativeFileReader extends AudioFileReader {
 
 		if (!Arrays.equals(FLAC_ID, header)) {
 			return null;
+		}
+
+		final MetaDataBlockHeader mdbHeader = new MetaDataBlockHeader();
+		try {
+			mdbHeader.read(stream);
+		} catch (final FlacDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		final float sampleRate;
