@@ -20,7 +20,7 @@ import java.util.Map;
 import javax.sound.sampled.AudioFormat;
 
 /**
- * @author alan.raison
+ * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
 public class FlacFormat extends AudioFormat {

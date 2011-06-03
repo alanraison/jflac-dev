@@ -21,14 +21,13 @@ import java.util.Collection;
 
 import org.jflac.FlacDataException;
 import org.jflac.data.format.Frame;
-import org.jflac.data.format.Stream;
 import org.jflac.data.format.meta.MetaDataBlock;
 
 /**
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
-public interface StreamDeserializer extends Deserializer<Stream> {
+public interface StreamDeserializer extends Deserializer<NativeFlacStream> {
 	Collection<MetaDataBlock> readMetaData(InputStream is) throws IOException, FlacDataException;
 	Frame readDataFrame(InputStream is) throws IOException, FlacDataException;
 }
