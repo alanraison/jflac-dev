@@ -38,7 +38,7 @@ import org.jflac.spi.FlacFormat;
 public class FlacNativeFileReader extends AudioFileReader {
 
 	@Override
-	public AudioFileFormat getAudioFileFormat(final InputStream stream)
+	public FlacFileFormat getAudioFileFormat(final InputStream stream)
 	throws UnsupportedAudioFileException, IOException {
 		// Mark the stream so that we can reset afterwards (if possible)
 		if (stream.markSupported()) {
@@ -48,24 +48,24 @@ public class FlacNativeFileReader extends AudioFileReader {
 
 		final NativeFlacStream flacStream = new NativeFlacStream(stream);
 
-		if (!flacStream.readFlacHeader()) {
-			stream.reset();
-			throw new UnsupportedAudioFileException("Could not locate FLAC file marker");
-		}
-
-		MetaDataBlockStreamInfo streamInfo;
 		try {
-			streamInfo = flacStream.getFirstStreamInfo();
-		} catch (final FlacDataException e) {
+			if (!flacStream.readFlacHeader()) {
+				throw new FlacDataException("Could not locate FLAC file marker");
+			}
 
+			MetaDataBlockStreamInfo streamInfo;
+			streamInfo = flacStream.getFirstStreamInfo();
+
+			final FlacFormat format = new FlacFormat(streamInfo.getSampleRate(), streamInfo.getBitsPerSample(),
+					streamInfo.getChannels(), true);
+			final FlacFileFormat fileFormat = new FlacFileFormat(FlacFileFormat.FLAC_NATIVE, format,
+					(int) streamInfo.getNumberOfSamples());
+			return fileFormat;
+
+		} catch (final FlacDataException e) {
+			stream.reset();
 			throw new UnsupportedAudioFileException(e.getMessage());
 		}
-
-		final FlacFormat format = new FlacFormat(streamInfo.getSampleRate(), streamInfo.getBitsPerSample(),
-				streamInfo.getChannels(), true);
-		final FlacFileFormat fileFormat = new FlacFileFormat(FlacFileFormat.FLAC_NATIVE, format,
-				(int) streamInfo.getNumberOfSamples());
-		return fileFormat;
 	}
 
 	@Override
@@ -83,8 +83,9 @@ public class FlacNativeFileReader extends AudioFileReader {
 	@Override
 	public AudioInputStream getAudioInputStream(final InputStream stream)
 	throws UnsupportedAudioFileException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		final FlacFileFormat fileFormat = getAudioFileFormat(stream);
+
+		return new AudioInputStream(stream, fileFormat.getFormat(), fileFormat.getFrameLength());
 	}
 
 	@Override
