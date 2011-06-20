@@ -31,7 +31,8 @@ import org.jflac.data.format.meta.MetaDataBlockData;
  */
 public class FlacToSignedPcmDecoderStream extends AudioInputStream {
 
-	Collection<MetaDataBlockData> metaData;
+	private Collection<MetaDataBlockData> metaData;
+	private byte[] buffer;
 
 	/**
 	 * @param stream
@@ -51,27 +52,18 @@ public class FlacToSignedPcmDecoderStream extends AudioInputStream {
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.sound.sampled.AudioInputStream#read()
-	 */
 	@Override
 	public int read() throws IOException {
-		// TODO Auto-generated method stub
-		return super.read();
+
+		return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.sound.sampled.AudioInputStream#read(byte[])
-	 */
 	@Override
 	public int read(final byte[] b) throws IOException {
 		// TODO Auto-generated method stub
 		return super.read(b);
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.sound.sampled.AudioInputStream#read(byte[], int, int)
-	 */
 	@Override
 	public int read(final byte[] b, final int off, final int len) throws IOException {
 		// TODO Auto-generated method stub

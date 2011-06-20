@@ -20,16 +20,17 @@ import java.util.Map;
 import javax.sound.sampled.AudioFormat;
 
 /**
+ * Defines the characteristics of a FLAC audio stream.
+ * 
  * @author alanraison <alanraison@users.sourceforge.net>
  *
  */
 public class FlacFormat extends AudioFormat {
 
 	public static final Encoding FLAC = new Encoding("flac");
-
 	private static final boolean BIG_ENDIAN = true;
+
 	/**
-	 * @param encoding
 	 * @param sampleRate
 	 * @param sampleSizeInBits
 	 * @param channels
@@ -37,39 +38,24 @@ public class FlacFormat extends AudioFormat {
 	 * @param frameRate
 	 * @param properties
 	 */
-	public FlacFormat(final Encoding encoding, final float sampleRate,
+	public FlacFormat(final float sampleRate,
 			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate,
 			final Map<String, Object> properties) {
-		super(encoding, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
+		super(FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN, properties);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param encoding
 	 * @param sampleRate
 	 * @param sampleSizeInBits
 	 * @param channels
 	 * @param frameSize
 	 * @param frameRate
 	 */
-	public FlacFormat(final Encoding encoding, final float sampleRate,
+	public FlacFormat(final float sampleRate,
 			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate) {
-		super(encoding, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
+		super(FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param sampleRate
-	 * @param sampleSizeInBits
-	 * @param channels
-	 * @param signed
-	 */
-	public FlacFormat(final float sampleRate, final int sampleSizeInBits, final int channels,
-			final boolean signed) {
-		super(sampleRate, sampleSizeInBits, channels, signed, BIG_ENDIAN);
-		// TODO Auto-generated constructor stub
 	}
 
 }
