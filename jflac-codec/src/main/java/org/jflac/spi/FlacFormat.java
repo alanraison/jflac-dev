@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright 2011 The jFLAC Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,9 +15,8 @@
  */
 package org.jflac.spi;
 
-import java.util.Map;
-
 import javax.sound.sampled.AudioFormat;
+import java.util.Map;
 
 /**
  * Defines the characteristics of a FLAC audio stream.
@@ -26,8 +25,6 @@ import javax.sound.sampled.AudioFormat;
  *
  */
 public class FlacFormat extends AudioFormat {
-
-	public static final Encoding FLAC = new Encoding("flac");
 	private static final boolean BIG_ENDIAN = true;
 
 	/**
@@ -41,7 +38,7 @@ public class FlacFormat extends AudioFormat {
 	public FlacFormat(final float sampleRate,
 			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate,
 			final Map<String, Object> properties) {
-		super(FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
+		super(FlacEncoding.FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN, properties);
 	}
 
@@ -54,7 +51,7 @@ public class FlacFormat extends AudioFormat {
 	 */
 	public FlacFormat(final float sampleRate,
 			final int sampleSizeInBits, final int channels, final int frameSize, final float frameRate) {
-		super(FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
+		super(FlacEncoding.FLAC, sampleRate, sampleSizeInBits, channels, frameSize, frameRate,
 				BIG_ENDIAN);
 	}
 

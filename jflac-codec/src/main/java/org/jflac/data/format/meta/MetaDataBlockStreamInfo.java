@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright 2011 The jFLAC Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,11 +15,11 @@
  */
 package org.jflac.data.format.meta;
 
+import org.jflac.data.format.util.ByteHelper;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-
-import org.jflac.data.format.util.ByteHelper;
 
 /**
  * A FLAC METADATA_BLOCK_STREAMINFO block.
@@ -89,7 +89,7 @@ public class MetaDataBlockStreamInfo extends MetaDataBlockData {
 	 */
 	public void setMinFrameSize(final int minFrameSize) {
 		this.blockData[4] = (byte) (minFrameSize >> 24);
-		this.blockData[5] = (byte) (minFrameSize >>16);
+		this.blockData[5] = (byte) (minFrameSize >> 16);
 		this.blockData[6] = (byte) minFrameSize;
 	}
 
@@ -113,19 +113,21 @@ public class MetaDataBlockStreamInfo extends MetaDataBlockData {
 	/**
 	 * @return the sampleRate
 	 */
-	public int getSampleRate() {
-		return this.blockData[10] << 12
+	public float getSampleRate() {
+        final int bits = this.blockData[10] << 12
 		| this.blockData[11] << 4
 		| this.blockData[12] >> 4;
+        return Float.intBitsToFloat(bits);
 	}
 
 	/**
 	 * @param sampleRate the sampleRate to set
 	 */
-	public void setSampleRate(final int sampleRate) {
-		this.blockData[10] = (byte) (sampleRate >> 12);
-		this.blockData[11] = (byte) (sampleRate >> 4);
-		this.blockData[12] = (byte) (sampleRate << 4 | (this.blockData[12] & 0xF));
+	public void setSampleRate(final float sampleRate) {
+        final int bits = Float.floatToRawIntBits(sampleRate);
+        this.blockData[10] = (byte) (bits >> 12);
+		this.blockData[11] = (byte) (bits >> 4);
+		this.blockData[12] = (byte) (bits << 4 | (this.blockData[12] & 0xF));
 	}
 
 	/**
